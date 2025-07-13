@@ -7,7 +7,7 @@ from library.models import Book
 ## Retrieve the first Book
 
 ```python
-book = Book.objects.first()
+book = Book.objects.get(id=1)
 
 from django.forms.models import model_to_dict
 model_to_dict(book)
