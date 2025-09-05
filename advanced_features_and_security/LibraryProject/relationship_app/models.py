@@ -1,7 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.conf import settings
+
+User = get_user_model()
 
 class UserProfile(models.Model):
     ROLE_CHOICES = (
@@ -9,7 +12,7 @@ class UserProfile(models.Model):
         ('librarian', 'Librarian'),
         ('member', 'Member'),
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
     role = models.CharField(max_length=50, choices=ROLE_CHOICES, default='member')
 
     def __str__(self):
